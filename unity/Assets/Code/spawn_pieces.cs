@@ -11,13 +11,16 @@ public class spawn_pieces : MonoBehaviour
     [SerializeField]
     GameObject[] pieces;
 
+    [SerializeField]
+    float spawnTimer = 5f;
+
     public Color GizmosColor = new Color(0.5f, 0.5f, 0.5f, 0.2f);
 
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("spawn", 0, 5);
+        InvokeRepeating("spawn", 0, spawnTimer);
     }
 
     // Update is called once per frame
