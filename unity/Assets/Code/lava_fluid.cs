@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class lava_fluid : MonoBehaviour
@@ -20,7 +18,7 @@ public class lava_fluid : MonoBehaviour
     float particleLifeTimeBias = 0.07f;
     [SerializeField]
     float particleStartSpeedBias = 8;
-    
+
 
 
     [SerializeField]
@@ -29,7 +27,7 @@ public class lava_fluid : MonoBehaviour
     Material mat;
     [SerializeField]
     GameObject waterMesh;
-    
+
     const float z_offset = -1f;
 
     float baseHeight;
@@ -55,9 +53,9 @@ public class lava_fluid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawn(transform.position.x - transform.localScale.x/2,
+        spawn(transform.position.x - transform.localScale.x / 2,
             transform.position.x + transform.localScale.x,
-            transform.position.y - transform.localScale.y/2,
+            transform.position.y - transform.localScale.y / 2,
             transform.position.y + transform.localScale.y);
     }
 
@@ -70,12 +68,13 @@ public class lava_fluid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        collision.attachedRigidbody.gravityScale = .1f;
+        collision.attachedRigidbody.bodyType = RigidbodyType2D.Static;
+
     }
 
     public void spawn(float left, float width, float bottom, float height)
@@ -111,7 +110,7 @@ public class lava_fluid : MonoBehaviour
 
 
         // creer ligne pour le top de l'eau.
-        for(int i = 0; i < nodeCount; i++)
+        for (int i = 0; i < nodeCount; i++)
         {
             ys[i] = height;
             xs[i] = left + width * i / edgesNeeded;
@@ -121,14 +120,14 @@ public class lava_fluid : MonoBehaviour
         }
 
         // creer les mesh pour chaque poly qui relie 2 nodes au fond de l'eau.
-        for( int i = 0; i < edgesNeeded; i++)
+        for (int i = 0; i < edgesNeeded; i++)
         {
             meshes[i] = new Mesh();
             Vector3[] verts = new Vector3[4];
             verts[0] = new Vector3(xs[i], ys[i], z_offset);
             verts[1] = new Vector3(xs[i + 1], ys[i + 1], z_offset);
             verts[2] = new Vector3(xs[i], this.bottom, z_offset);
-            verts[3] = new Vector3(xs[i+1], this.bottom, z_offset);
+            verts[3] = new Vector3(xs[i + 1], this.bottom, z_offset);
 
             Vector2[] uvs = new Vector2[4];
             uvs[0] = new Vector2(0, 1);
@@ -161,7 +160,7 @@ public class lava_fluid : MonoBehaviour
 
         }
 
-        
+
     }
 
     // methode pour mettre a jour les meshes apres qu'on ait calcule les nouvelles
@@ -188,7 +187,7 @@ public class lava_fluid : MonoBehaviour
             // loi de hooke pour les ressorts. la surface agit comme un ressort qui
             // bounce de haut en bas
             float force = springness * (ys[i] - baseHeight) + velos[i] * damping;
-            accels[i] = -force * nodeMass;
+            accels[i] = -force * nodeMass / 10;
             ys[i] += velos[i];
             velos[i] += accels[i];
             lrFluidTop.SetPosition(i, new Vector3(xs[i], ys[i], z_offset));
