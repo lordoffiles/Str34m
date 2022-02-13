@@ -13,11 +13,11 @@ public class player_controller : MonoBehaviour
     [SerializeField]
     Rigidbody2D rb;
 
-    private bool canJump = false;
+    private bool canJetpack = false;
     // Start is called before the first frame update
     void Start()
     {
-        canJump = true;
+        canJetpack = true;
     }
 
     // Update is called once per frame
@@ -25,21 +25,26 @@ public class player_controller : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        rb.AddForce(Vector3.right * horizontalInput * moveSpeed);
+        rb.AddForce(Vector3.right * horizontalInput * moveSpeed/100);
 
-        if (Input.GetAxis("Jump") > 0)
+        if (canJetpack == false &&  Input.GetAxis("Jump") > 0)
         {
-            canJump = true;
+            canJetpack = true;
         }
 
     }
 
+    void resetCanJump()
+    {
+        canJetpack = true;
+    }
+
     private void FixedUpdate()
     {
-        if(canJump)
+        if(canJetpack)
         {
             rb.AddForce(new Vector2(0f,jumpImpulse/100), ForceMode2D.Impulse);
-            canJump = false;
+            canJetpack = false;
         }
     }
 }

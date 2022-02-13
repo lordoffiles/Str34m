@@ -73,8 +73,18 @@ public class lava_fluid : MonoBehaviour
         
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        collision.attachedRigidbody.gravityScale = .1f;
+    }
+
     public void spawn(float left, float width, float bottom, float height)
     {
+        gameObject.AddComponent<BoxCollider2D>();
+        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(left + width / 2, (height + bottom) / 2);
+        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(width, height - bottom);
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+
         int edgesNeeded = Mathf.RoundToInt(width) * edgeNumBias;
         int nodeCount = edgesNeeded + 1;
 
@@ -178,7 +188,7 @@ public class lava_fluid : MonoBehaviour
             // loi de hooke pour les ressorts. la surface agit comme un ressort qui
             // bounce de haut en bas
             float force = springness * (ys[i] - baseHeight) + velos[i] * damping;
-            accels[i] = -force / nodeMass;
+            accels[i] = -force * nodeMass;
             ys[i] += velos[i];
             velos[i] += accels[i];
             lrFluidTop.SetPosition(i, new Vector3(xs[i], ys[i], z_offset));
