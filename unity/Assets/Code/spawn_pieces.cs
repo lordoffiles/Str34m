@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class spawn_pieces : MonoBehaviour
@@ -26,7 +24,7 @@ public class spawn_pieces : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnDrawGizmos()
@@ -37,7 +35,7 @@ public class spawn_pieces : MonoBehaviour
 
     private void spawn()
     {
-        
+
         GameObject piece = pieces[Random.Range(0, pieces.Length)];
 
         GameObject inst = Instantiate(piece);
@@ -51,6 +49,6 @@ public class spawn_pieces : MonoBehaviour
         Vector3 inst_position = origin + randomRange;
 
         inst.transform.position = inst_position;
-        
+
     }
 }
