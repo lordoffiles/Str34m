@@ -33,13 +33,16 @@ public class player_controller : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        rb.AddForce(Vector3.right * horizontalInput * moveSpeed / 100);
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            rb.AddForce(Vector3.right * horizontalInput * moveSpeed);
+        }
 
-        if (canJetpack == false && Input.GetAxis("Jump") > 0)
+        // if (canJetpack == false && Input.GetAxis("Jump") > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpAmount, ForceMode2D.Impulse);
             // rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            
         }
         if (rb.velocity.y >= 0)
         {
@@ -59,10 +62,10 @@ public class player_controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canJetpack)
-        {
-            rb.AddForce(new Vector2(0f, jumpImpulse / 100), ForceMode2D.Impulse);
-            canJetpack = false;
-        }
+        // if (canJetpack)
+        // {
+        //     rb.AddForce(new Vector2(0f, jumpImpulse / 100), ForceMode2D.Impulse);
+        //     canJetpack = false;
+        // }
     }
 }
