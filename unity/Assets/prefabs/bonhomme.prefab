@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7727990362610147951}
   - component: {fileID: 1457989280238655017}
   - component: {fileID: 2001917142087701078}
+  - component: {fileID: 1446874337455893622}
   m_Layer: 0
   m_Name: bonhomme
   m_TagString: Untagged
@@ -144,6 +145,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e91f11f47231a4380dd9e57cb4a40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
-  jumpImpulse: 50
+  canDie: 1
+  moveSpeed: 15
+  jumpHeight: 15
+  gravityScale: 3.5
+  fallingGravityScale: 5
   rb: {fileID: 7727990362610147951}
+  fuelUsagePerFrame: 0.5
+  jetpackVerticalForce: 1
+  fireEffect: {fileID: 0}
+--- !u!114 &1446874337455893622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261301235505125803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db667da47946f343b6673fc11f78ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFuel: 100
+  startingFuel: 100
+  innerfuelBar: {fileID: 0}

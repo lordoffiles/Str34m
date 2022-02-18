@@ -12,9 +12,12 @@ public class WaterDetector : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            GetComponentInParent<game_master>().hasLost();
-            
-            Destroy(collision.gameObject, 1.0f);
+            if ( collision.gameObject.GetComponent<player_controller>().canDie == true)
+            {
+                GetComponentInParent<game_master>().hasLost();
+
+                Destroy(collision.gameObject, 1.0f);
+            }
         }
         
         if (collision.attachedRigidbody != null &&
