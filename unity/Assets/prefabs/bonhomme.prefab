@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 587880566794518517}
   - component: {fileID: 3658426848032597076}
   - component: {fileID: 7727990362610147951}
-  - component: {fileID: 1457989280238655017}
   - component: {fileID: 2001917142087701078}
   - component: {fileID: 1446874337455893622}
+  - component: {fileID: -8299995713277529671}
+  - component: {fileID: 8320342924465618403}
   m_Layer: 0
   m_Name: bonhomme
   m_TagString: Untagged
@@ -52,8 +53,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1.6, y: 2.2}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -82,7 +83,44 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!212 &1457989280238655017
+--- !u!114 &2001917142087701078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261301235505125803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e91f11f47231a4380dd9e57cb4a40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canDie: 1
+  moveSpeed: 15
+  maxVelocity: 15
+  jumpHeight: 15
+  gravityScale: 3.5
+  fallingGravityScale: 5
+  rb: {fileID: 7727990362610147951}
+  fuelUsagePerFrame: 0.5
+  jetpackVerticalForce: 1
+  fireEffect: {fileID: 0}
+--- !u!114 &1446874337455893622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261301235505125803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db667da47946f343b6673fc11f78ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFuel: 100
+  startingFuel: 100
+  innerfuelBar: {fileID: 0}
+--- !u!212 &-8299995713277529671
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,50 +160,33 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e9e3a0d3264f84342b05ed6a646ed1c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4efb92087605e09459abc45cd232ee5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2001917142087701078
-MonoBehaviour:
+--- !u!95 &8320342924465618403
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8261301235505125803}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e91f11f47231a4380dd9e57cb4a40b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canDie: 1
-  moveSpeed: 15
-  jumpHeight: 15
-  gravityScale: 3.5
-  fallingGravityScale: 5
-  rb: {fileID: 7727990362610147951}
-  fuelUsagePerFrame: 0.5
-  jetpackVerticalForce: 1
-  fireEffect: {fileID: 0}
---- !u!114 &1446874337455893622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8261301235505125803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db667da47946f343b6673fc11f78ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxFuel: 100
-  startingFuel: 100
-  innerfuelBar: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 73785d3b5a92f184981ba60d53c9bf41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
