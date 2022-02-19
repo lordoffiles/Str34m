@@ -38,6 +38,8 @@ public class player_controller : MonoBehaviour
 
     private bool isLookingRight = true;
 
+    private bool hasRockParent = false;
+
     // Start is called before the first frame update
     void Start()
     {
