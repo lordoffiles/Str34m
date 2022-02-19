@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8320342924465618403}
   m_Layer: 0
   m_Name: bonhomme
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.051974744, y: 0}
+  m_Offset: {x: 0.08, y: -0.16}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -60,7 +60,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4454982, y: 2.5333285}
+  m_Size: {x: 1.03, y: 2.1}
   m_EdgeRadius: 0
 --- !u!50 &7727990362610147951
 Rigidbody2D:
@@ -104,7 +104,8 @@ MonoBehaviour:
   rb: {fileID: 7727990362610147951}
   fuelUsagePerFrame: 0.5
   jetpackVerticalForce: 1
-  fireEffect: {fileID: 0}
+  fireEffectLeft: {fileID: 0}
+  fireEffectRight: {fileID: 0}
 --- !u!114 &1446874337455893622
 MonoBehaviour:
   m_ObjectHideFlags: 0
