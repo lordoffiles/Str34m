@@ -30,9 +30,9 @@ public class player_controller : MonoBehaviour
     [SerializeField]
     float jetpackVerticalForce = 1;
     [SerializeField]
-    GameObject fireEffect;
-
-    private bool canJetpack = false;
+    GameObject fireEffectLeft;
+    [SerializeField]
+    GameObject fireEffectRight;
 
     private bool jumpUsed = false;
 
@@ -42,7 +42,6 @@ public class player_controller : MonoBehaviour
     void Start()
     {
         jp = GetComponent<jetpack>();
-        canJetpack = true;
         rb.freezeRotation = true;
 
         rb.gravityScale = gravityScale;
@@ -61,6 +60,7 @@ public class player_controller : MonoBehaviour
         if(moveDirection != 0)
         {
             GetComponentInChildren<SpriteRenderer>().flipX = !isLookingRight;
+
         }
 
         // sauter
@@ -79,14 +79,23 @@ public class player_controller : MonoBehaviour
             else
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jetpackVerticalForce);
 
-            fireEffect.SetActive(true);
+            if (isLookingRight)
+            {
+                fireEffectLeft.SetActive(true);
+                fireEffectRight.SetActive(false);
+            } else
+            {
+                fireEffectRight.SetActive(true);
+                fireEffectLeft.SetActive(false);
+            }
 
             jp.CurrentFuel = jp.CurrentFuel - fuelUsagePerFrame;
+
+            
         } else
-        {   
-            if (jp.CurrentFuel < jp.maxFuel)
-                jp.CurrentFuel = jp.CurrentFuel + 1;
-            fireEffect.SetActive(false);
+        {
+            fireEffectRight.SetActive(false);
+            fireEffectLeft.SetActive(false);
         }
 
         if (rb.velocity.y >= 0)
@@ -101,7 +110,21 @@ public class player_controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        jumpUsed = false;
+        
+        if (collision.gameObject.tag == "pickup")
+        {
+            jp.addFuel(collision.gameObject.GetComponent<pickup>().amount);
+            Destroy(collision.gameObject);
+            //play sound collect
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Rock")
+        {
+            jumpUsed = false;
+        }
     }
 
     private void FixedUpdate()

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - water_collider
+  - Rock
+  - pickup
   layers:
   - Default
   - TransparentFX

@@ -28,9 +28,15 @@ public class jetpack : MonoBehaviour
     void Update()
     {
         innerfuelBar.transform.localScale = new Vector3(
-            innerfuelBar.transform.localScale.x * currentFuel /100, 
+            Mathf.Clamp(currentFuel / 100, 0, startingFuel), 
             innerfuelBar.transform.localScale.y, 
             innerfuelBar.transform.localScale.z);
 
+    }
+
+    public void addFuel(float amount)
+    {
+
+        currentFuel += Mathf.Clamp(amount, 0, startingFuel-currentFuel);
     }
 }

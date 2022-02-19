@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class lava_fluid : MonoBehaviour
 {
@@ -24,9 +25,16 @@ public class lava_fluid : MonoBehaviour
     [SerializeField]
     GameObject splash;
     [SerializeField]
-    Material mat;
+    Material lineMat;
+    [SerializeField]
+    Color colorA;
+    [SerializeField]
+    Color colorB;
+    [SerializeField]
+    float duration = 5;
     [SerializeField]
     GameObject waterMesh;
+
 
     const float z_offset = -1f;
 
@@ -34,7 +42,7 @@ public class lava_fluid : MonoBehaviour
     float left;
     float bottom;
 
-
+    float startTime;
 
     float[] xs;
     float[] ys;
@@ -53,10 +61,12 @@ public class lava_fluid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startTime = Time.time;
+
         spawn(transform.position.x - transform.localScale.x / 2,
             transform.position.x + transform.localScale.x,
-            transform.position.y - transform.localScale.y / 2,
-            transform.position.y + transform.localScale.y);
+            transform.position.y - transform.localScale.y/2,
+            transform.position.y + transform.localScale.y/2);
     }
 
     void OnDrawGizmos()
@@ -69,7 +79,20 @@ public class lava_fluid : MonoBehaviour
     void Update()
     {
 
+        StartCoroutine("cycleColor");
+        
+
+
     }
+
+    IEnumerator cycleColor()
+    {
+        float t = (Mathf.Cos(((Time.time - startTime) + duration) * Mathf.PI / duration) + 1) * 0.5f;
+
+        lineMat.color = Color.Lerp(colorA, colorB, t);
+        yield return null;
+    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -88,11 +111,12 @@ public class lava_fluid : MonoBehaviour
         int nodeCount = edgesNeeded + 1;
 
         lrFluidTop = gameObject.AddComponent<LineRenderer>();
-        lrFluidTop.material = mat;
+        lrFluidTop.material = lineMat;
         lrFluidTop.material.renderQueue = 1000;
         lrFluidTop.positionCount = nodeCount;
         lrFluidTop.startWidth = lineRendererWidth;
         lrFluidTop.endWidth = lineRendererWidth;
+        lrFluidTop.useWorldSpace = true;
 
         xs = new float[nodeCount];
         ys = new float[nodeCount];
@@ -150,11 +174,13 @@ public class lava_fluid : MonoBehaviour
             colliders[i].tag = "water_collider";
             colliders[i].AddComponent<BoxCollider2D>();
             colliders[i].transform.parent = transform;
+            
+            // pas besoin que ca soit tres haut. juste pour les objets qui entrent la premiere fois dans la lave.
+            colliders[i].transform.localScale = new Vector3(width / edgesNeeded, .1f, 1);
             // la position d'un collider est le point le plus a gauche + la largeur d'une seule de mesh 
             // * sa position dans la liste decallee de .5 le tout divise par le nombre de edges
-            colliders[i].transform.position = new Vector3(left + width * (i + 0.5f) / edgesNeeded, height - 0.5f, 0);
-            // pas besoin que ca soit tres haut. juste pour les objets qui entrent la premiere fois dans la lave.
-            colliders[i].transform.localScale = new Vector3(width / edgesNeeded, 1, 1);
+            colliders[i].transform.position = new Vector3(left + width * (i + 0.5f) / edgesNeeded, height - 0/5, 0);
+            
             colliders[i].GetComponent<BoxCollider2D>().isTrigger = true;
             colliders[i].AddComponent<WaterDetector>();
 
@@ -245,7 +271,7 @@ public class lava_fluid : MonoBehaviour
         {
             x -= xs[0];
             int index = Mathf.RoundToInt((xs.Length - 1) * (x / (xs[xs.Length - 1] - xs[0])));
-            velos[index] += velo;
+            velos[index] += velo/2;
 
             float absVelo = Mathf.Abs(velo);
 

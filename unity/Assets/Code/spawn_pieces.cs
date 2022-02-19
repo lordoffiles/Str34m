@@ -19,6 +19,7 @@ public class spawn_pieces : MonoBehaviour
     void Start()
     {
         InvokeRepeating("spawn", 0, spawnTimer);
+        gameObject.tag = "Rock";
     }
 
     // Update is called once per frame
