@@ -40,6 +40,8 @@ public class player_controller : MonoBehaviour
 
     private bool hasRockParent = false;
 
+    private AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +49,8 @@ public class player_controller : MonoBehaviour
         rb.freezeRotation = true;
 
         rb.gravityScale = gravityScale;
+
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -70,6 +74,7 @@ public class player_controller : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
             jumpUsed = true;
+            source.Play();
         }
 
         // jetpack
