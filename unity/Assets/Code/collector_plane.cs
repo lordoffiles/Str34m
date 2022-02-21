@@ -14,13 +14,12 @@ public class collector_plane : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("wait");
-        holdUpdate = false;
+        Invoke("setCanUpdate", timeBeforeStart);
     }
 
-    IEnumerator wait()
+    void setCanUpdate()
     {
-        yield return new WaitForSeconds(timeBeforeStart);
+        holdUpdate = false;
     }
 
     // Update is called once per frame
