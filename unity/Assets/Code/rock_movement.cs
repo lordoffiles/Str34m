@@ -13,10 +13,14 @@ public class rock_movement : MonoBehaviour
 
     float movementY = 0;
     float movementX = 0;
+
+    private AudioSource source;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        source = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +37,8 @@ public class rock_movement : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Static;
 
             collision.gameObject.transform.SetParent(this.transform);
+
+            source.Play();
         }
     }
 
